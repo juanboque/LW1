@@ -22,7 +22,8 @@ String gpio0_state = "Off"; //D3
 String gpio2_state = "Off"; //D4
 String gpio15_state = "Off"; //D8
 String gpio14_D5_RED_state = "Off";
-String gpio12_D6_GREEN_state = "Off";
+//String gpio12_D6_GREEN_state = "Off";
+String gpio12_D8_GREEN_state = "Off";
 String gpio13_D7_BLUE_state = "Off";
 String LAMP_state = "Off";
 
@@ -31,9 +32,11 @@ int gpio4_pin = 4;
 int gpio16_pin = 16;
 int gpio0_pin = 0; //D3
 int gpio2_pin = 2; //D4
-int gpio15_pin = 15; //D8
+//int gpio15_pin = 15; //D8
+int gpio15_pin = 12; //D8
 int gpio14_D5_RED_pin = 14;     //pwm to control red led
-int gpio12_D6_GREEN_pin = 12;   //pwm to control green led
+//int gpio12_D6_GREEN_pin = 12;   //pwm to control green led
+int gpio12_D8_GREEN_pin = 15;   //pwm to control green led
 int gpio13_D7_BLUE_pin = 13;    //pwm to control blue led
 
 // Current time
@@ -56,8 +59,8 @@ void setup() {
   digitalWrite(gpio4_pin, LOW);
   pinMode(gpio14_D5_RED_pin, OUTPUT);
   digitalWrite(gpio14_D5_RED_pin, LOW);
-  pinMode(gpio12_D6_GREEN_pin, OUTPUT);
-  digitalWrite(gpio12_D6_GREEN_pin, LOW);
+  pinMode(gpio12_D8_GREEN_pin, OUTPUT);
+  digitalWrite(gpio12_D8_GREEN_pin, LOW);
   pinMode(gpio13_D7_BLUE_pin, OUTPUT);
   digitalWrite(gpio13_D7_BLUE_pin, LOW);
   pinMode(gpio16_pin, OUTPUT);
@@ -155,13 +158,13 @@ void loop() {
               }
               else if(header.indexOf("GET /gpio12on HTTP/1.1") >= 0){
                 Serial.println("GPIO 12 On");
-                gpio12_D6_GREEN_state = "On";
-                digitalWrite(gpio12_D6_GREEN_pin, HIGH);
+                gpio12_D8_GREEN_state = "On";
+                digitalWrite(gpio12_D8_GREEN_pin, HIGH);
               }
               else if(header.indexOf("GET /gpio12off HTTP/1.1") >= 0){
                 Serial.println("GPIO 12 Off");
-                gpio12_D6_GREEN_state = "Off";
-                digitalWrite(gpio12_D6_GREEN_pin, LOW);
+                gpio12_D8_GREEN_state = "Off";
+                digitalWrite(gpio12_D8_GREEN_pin, LOW);
               }
               else if(header.indexOf("GET /gpio13on HTTP/1.1") >= 0){
                 Serial.println("GPIO 13 On");
@@ -230,7 +233,7 @@ void loop() {
                 delay(75);
                 analogWrite(gpio14_D5_RED_pin, 255);
                 delay(75);
-                analogWrite(gpio12_D6_GREEN_pin, 255);
+                analogWrite(gpio12_D8_GREEN_pin, 255);
                 delay(75);
                 analogWrite(gpio13_D7_BLUE_pin, 255);
               }    
@@ -240,7 +243,7 @@ void loop() {
                 digitalWrite(gpio5_pin, LOW);
                 digitalWrite(gpio4_pin, LOW);
                 analogWrite(gpio14_D5_RED_pin, 0);
-                analogWrite(gpio12_D6_GREEN_pin, 0);
+                analogWrite(gpio12_D8_GREEN_pin, 0);
                 analogWrite(gpio13_D7_BLUE_pin, 0);
                 digitalWrite(gpio16_pin, LOW);
                 digitalWrite(gpio0_pin, LOW);
@@ -291,7 +294,7 @@ void loop() {
               client.println("<div class=\"col-md-2\"><a href=\"/gpio14on\" class=\"btn btn-block btn-lg btn-success\" role=\"button\">ON</a></div>");
               client.println("<div class=\"col-md-2\"><a href=\"/gpio14off\" class=\"btn btn-block btn-lg btn-danger\" role=\"button\">OFF</a></div>");
               client.println("</div>");
-              client.println("<h2>LED VERDE - Estado: " + gpio12_D6_GREEN_state);
+              client.println("<h2>LED VERDE - Estado: " + gpio12_D8_GREEN_state);
               client.println("<div class=\"row\">");
               client.println("<div class=\"col-md-2\"><a href=\"/gpio12on\" class=\"btn btn-block btn-lg btn-success\" role=\"button\">ON</a></div>");
               client.println("<div class=\"col-md-2\"><a href=\"/gpio12off\" class=\"btn btn-block btn-lg btn-danger\" role=\"button\">OFF</a></div>");
